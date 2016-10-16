@@ -1,1 +1,8 @@
+/.installed.cfg
 /.vagrant
+
+/bin
+/develop-eggs
+/eggs
+/parts
+/src/tastyscrapy.egg-info
