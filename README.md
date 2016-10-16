@@ -1,4 +1,4 @@
-# tastyscrapy
+# tastyscrapy [![Build Status][tastyscrapy-travis-img]][tastyscrapy-travis]
 
 A Scrapy project to scrape all public and private bookmarks in a Delicious account into a local SQLite database.
 
@@ -64,6 +64,8 @@ After this is complete, there should be a number of scripts in the `bin` directo
  - `bin/scrapy`: Invokes the Scrapy start script.
 
 
+ [tastyscrapy-travis]: https://travis-ci.org/rfkrocktk/tastyscrapy
+ [tastyscrapy-travis-img]: https://travis-ci.org/rfkrocktk/tastyscrapy.svg?branch=master
  [vagrant]: https://vagrantup.com
  [buildout]: https://pypi.python.org/pypi/zc.buildout/2.5.3
  [buildout-virtualenv]: http://www.buildout.org/en/latest/install.html
