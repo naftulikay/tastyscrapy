@@ -1,12 +1,21 @@
+# python compiled files
 __pycache__
 *.pyc
 *.pyo
 
+# dotfiles
 /.installed.cfg
 /.vagrant
 
+# files
+/pip-selfcheck.json
+
+# directories
 /bin
 /develop-eggs
 /eggs
+/include
+/lib
+/lib64
 /parts
 /src/tastyscrapy.egg-info
