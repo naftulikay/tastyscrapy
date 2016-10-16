@@ -6,3 +6,18 @@
          yum: name=epel-release state=present
        - name: install python3.4
          yum: name=python34 state=present
+       - name: install python dev packages
+         yum: name={{ item }} state=present
+         with_items:
+             # python development headers
+             - python34-devel
+             # openssl development headers
+             - openssl-devel
+             # foreign function interface development headers, required by some Python native extensions
+             - libffi-devel
+             # xml-related development headers
+             - libxslt-devel
+             - libxml2-devel
+             # build tools and compilers
+             - make
+             - gcc
