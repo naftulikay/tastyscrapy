@@ -1,0 +1,8 @@
+---
+ - hosts: all
+   become: yes
+   tasks:
+       - name: install epel repository
+         yum: name=epel-release state=present
+       - name: install python3.4
+         yum: name=python34 state=present
