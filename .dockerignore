@@ -1,0 +1,24 @@
+# python cache
+__pycache__
+
+# dot folders
+.git
+.vagrant
+
+# folders
+ansible
+bin
+develop-eggs
+eggs
+include
+lib
+lib64
+parts
+src/tastyscrapy.egg-info
+
+# dot files
+.travis.yml
+
+# files
+pip-selfcheck.json
+Vagrantfile
