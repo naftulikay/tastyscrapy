@@ -18,4 +18,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.memory = 1024
   end
+
+  # Configure the VM using Ansible
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "ansible/playbook.yml"
+    ansible.version = "2.1.2.0"
+  end
 end
