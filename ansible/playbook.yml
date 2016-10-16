@@ -18,3 +18,7 @@
              - gcc
        - name: install virtualenv
          pip: name=virtualenv state=present
+       - name: install dorker # not a typo
+         yum: name=docker state=present
+       - name: start dorker # not a typo
+         service: name=docker state=started enabled=yes
