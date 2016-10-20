@@ -35,7 +35,7 @@ class DeliciousSpider(scrapy.Spider):
         Example response for a successful login attempt:
         http://pastebin.com/Ds2Gqykr
         """
-        if response.status != 200:
+        if response.status >= 400:
             raise LoginFailedException("Received response {} when trying to log in.".format(response.status))
 
         # create variable for storing the json payload
@@ -86,9 +86,40 @@ class DeliciousSpider(scrapy.Spider):
             yield Bookmark(delicious_id=bookmark_id, created=bookmark_date, title=bookmark_title,
                 url=bookmark_url, comment=bookmark_comment, tags=bookmark_tags, private=bookmark_private)
 
+            # if the item is not private _and_ we're asked to mark it private, do the thing
+            if not bookmark_private and self.settings.get('DELICIOUS_MARK_PRIVATE'):
+                yield scrapy.FormRequest(urlparse.urljoin(response.url, '/save/bookmark'),
+                    callback=self.on_update_bookmark_response,
+                    meta={'bookmark_id': bookmark_id},
+                    formdata={
+                        'replace': 'true',
+                        'url': bookmark_url,
+                        'description': bookmark_title,
+                        'tags': ','.join(bookmark_tags),
+                        'note': bookmark_comment or '',
+                        'private': 'true'
+                    },
+                    # if this isn't present, 404
+                    headers={'X-Requested-With': ['XMLHttpRequest']},
+                )
+
         # after parsing all bookmarks, find the next page and go there
         next_link = response.css('.pagination a[aria-label=Next]::attr(href)').extract_first()
 
         if next_link:
             yield scrapy.Request(urlparse.urljoin(response.url, next_link),
                 callback=self.on_bookmark_response)
+
+    def on_update_bookmark_response(self, response):
+        """
+        Callback method triggered on response from /bookmark/save.
+        """
+        # extract bookmark id from response
+        bookmark_id = response.meta.get('bookmark_id', '(unknown)')
+
+        # log whether we succeeded or failed
+        if response.status == 200:
+            self.logger.info("Marked bookmark {} as private.".format(bookmark_id))
+        else:
+            self.logger.error("Unable to mark bookmark {} as private, due to code {}.".format(
+                bookmark_id, response.status))

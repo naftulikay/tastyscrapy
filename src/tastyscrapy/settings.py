@@ -16,3 +16,11 @@ NEWSPIDER_MODULE = 'tastyscrapy.spiders'
 # pull in the username and password from environment variables
 DELICIOUS_USERNAME = environ.get('DELICIOUS_USERNAME', '')
 DELICIOUS_PASSWORD = environ.get('DELICIOUS_PASSWORD', '')
+
+
+# allow batch private marking if the user wants it
+def is_mark_private():
+    return environ.get('DELICIOUS_MARK_PRIVATE', False) \
+        in ['true', 'True', 'yes', 'on', True]
+
+DELICIOUS_MARK_PRIVATE = is_mark_private()

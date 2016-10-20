@@ -22,3 +22,10 @@
          yum: name=docker state=present
        - name: start dorker # not a typo
          service: name=docker state=started enabled=yes
+       - name: install workflow packages
+         yum: name={{ item }} state=present
+         with_items:
+             # json parsing CLI
+             - jq
+             # bash completion
+             - bash-completion
