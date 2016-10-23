@@ -8,7 +8,7 @@ from sqlalchemy.orm import relationship
 
 
 bookmark_tag_table = Table('bookmark_tag', Base.metadata,
-    Column(Integer, primary_key=True),
+    Column('id', Integer, primary_key=True),
     Column('bookmark_id', Integer, ForeignKey('bookmark.id')),
     Column('tag_id', Integer, ForeignKey('tag.id')),
 )
