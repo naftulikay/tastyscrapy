@@ -10,6 +10,7 @@ setup(
     install_requires = [
         'setuptools',
         'scrapy >= 1.2.0, < 1.3.0',
+        'sqlalchemy >= 1.1.2, < 1.2.0',
         'xjpath >= 0.1.5, < 0.2.0',
     ],
 )

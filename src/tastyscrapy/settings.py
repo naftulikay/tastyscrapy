@@ -13,6 +13,11 @@ SPIDER_MODULES = [
 # create new spiders in this module
 NEWSPIDER_MODULE = 'tastyscrapy.spiders'
 
+# pipelines
+ITEM_PIPELINES = {
+    'tastyscrapy.pipelines.DatabasePipeline': 500,
+}
+
 # pull in the username and password from environment variables
 DELICIOUS_USERNAME = environ.get('DELICIOUS_USERNAME', '')
 DELICIOUS_PASSWORD = environ.get('DELICIOUS_PASSWORD', '')
@@ -24,3 +29,6 @@ def is_mark_private():
         in ['true', 'True', 'yes', 'on', True]
 
 DELICIOUS_MARK_PRIVATE = is_mark_private()
+
+# allow saving of database to custom output file
+DATABASE_FILE = environ.get('DATABASE_FILE', 'delicious.db')
